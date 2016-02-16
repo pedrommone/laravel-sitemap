@@ -36,20 +36,6 @@ class Sitemap
     public function __construct(array $config)
     {
         $this->model = new Model($config);
-
-        if (!$this->model->testing)
-        {
-            // keep public assets updated (even if they are not published)
-            @Artisan::call('vendor:publish', ['--force' => true, '--provider' => 'Roumen\Sitemap\SitemapServiceProvider', '--tag'=>'public']);
-            @Artisan::call('vendor:publish', ['--force' => true, '--provider' => 'Roumen\Sitemap\SitemapServiceProvider', '--tag'=>['public']]);
-
-            // keep views updated (only if they are published)
-            if (file_exists(base_path('resources/views/vendor/sitemap/')))
-            {
-                @Artisan::call('vendor:publish', ['--force' => true, '--provider' => 'Roumen\Sitemap\SitemapServiceProvider', '--tag'=>'views']);
-                @Artisan::call('vendor:publish', ['--force' => true, '--provider' => 'Roumen\Sitemap\SitemapServiceProvider', '--tag'=>['views']]);
-            }
-        }
     }
 
 
